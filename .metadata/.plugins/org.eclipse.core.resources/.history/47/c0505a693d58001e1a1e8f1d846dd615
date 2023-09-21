@@ -1,0 +1,11 @@
+package user;
+
+import java.sql.Connection;
+
+// UserDAO //
+public class UserDAO {
+	
+	private Connection connection;
+	
+	
+} // End - UserDAO

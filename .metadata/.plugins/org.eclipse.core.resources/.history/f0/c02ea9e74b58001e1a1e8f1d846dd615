@@ -1,0 +1,33 @@
+package user;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class MultiTester {
+
+	public static void main(String[] args) {
+		
+		Test1 test = new Test1();
+		
+	}
+	
+	
+	
+	private void Test1() {
+		try {
+			
+			String dbURL 		= "jdbc:mysql://localhost:3305/BBS?serverTimezone=UTC";
+			String dbID 		= "root";
+			String dbPassword 	= "1234";
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			Connection conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+			
+			System.out.println(conn);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

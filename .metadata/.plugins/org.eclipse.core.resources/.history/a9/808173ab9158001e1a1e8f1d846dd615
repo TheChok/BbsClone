@@ -1,0 +1,58 @@
+package user;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import bbs.Bbs;
+import bbs.BbsDAO;
+
+// MultiTester //
+public class MultiTester {
+
+	// main //
+	public static void main(String[] args) {
+		//Test1();
+		
+		Bbs		bbs 	= new Bbs();
+		BbsDAO 	bbsDAO 	= new BbsDAO();
+		
+		bbsDAO.write(null, null, null)
+		
+		
+		String bbsTitle		= "title";
+		String userID 		= "1234";
+		String bbsContent 	= "content";
+		
+		for(int i = 0; i < 5; i++) {
+			bbsTitle = bbsTitle + i;
+			bbsContent = bbsContent + i;
+			
+			//System.out.println(bbsTitle + ", " + bbsContent);
+			
+			
+		}
+		
+
+	} // End - main
+	
+	
+	// Test Class//
+	private static void Test1() {
+		try {
+			String dbURL 		= "jdbc:mysql://localhost:3305/BBS?serverTimezone=UTC";
+			String dbID 		= "root";
+			String dbPassword 	= "1234";
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			Connection conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+			
+			System.out.println(conn);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+} // End - MultiTester
+

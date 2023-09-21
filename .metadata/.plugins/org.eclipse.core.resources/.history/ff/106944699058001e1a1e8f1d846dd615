@@ -1,0 +1,108 @@
+package user;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+// MultiTester //
+public class MultiTester {
+	private static Connection 			conn;
+	private static ResultSet 			rs;
+
+	// main //
+	public static void main(String[] args) {
+		Test1();
+		
+		String bbsTitle		= "title";
+		String userID 		= "1234";
+		String bbsContent 	= "content";
+		
+		for(int i = 0; i < 30; i++) {
+			bbsTitle = bbsTitle + i;
+			bbsContent = bbsContent + i
+		}
+		
+		write(bbsTitle, userID, bbsContent);
+
+	} // End - main
+	
+	
+	// Test Class//
+	private static void Test1() {
+		try {
+			String dbURL 		= "jdbc:mysql://localhost:3305/BBS?serverTimezone=UTC";
+			String dbID 		= "root";
+			String dbPassword 	= "1234";
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			Connection conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+			
+			System.out.println(conn);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static int write(String bbsTitle, String userID, String bbsContent) {
+		String SQL = "INSERT INTO BBS VALUE (?, ?, ?, ?, ?, ?)";
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, getNext());
+			pstmt.setString(2, bbsTitle);
+			pstmt.setString(3, userID);
+			pstmt.setString(4, getDate());
+			pstmt.setString(5, bbsContent);
+			pstmt.setInt(6, 1);
+			//rs = pstmt.executeQuery();
+			return pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		// 데이터베이스 오류
+		return -1;
+	}
+	
+	// getNext //
+	public static int getNext() {
+		String SQL = "SELECT bbsID FROM BBS ORDER BY bbsID DESC";
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1) + 1;
+			}
+			// 첫번째 게시물
+			return 1;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		// 데이터베이스 오류
+		return -1;
+	}
+	
+	
+	// getDate //
+	public static String getDate() {
+		String SQL = "SELECT NOW()";
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		// 데이터베이스 오류
+		return "";
+	}
+	
+	
+} // End - MultiTester
+

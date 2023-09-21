@@ -1,0 +1,29 @@
+package user;
+
+public class MultiTester {
+
+	public static void main(String[] args) {
+		
+		private static final String DRIVER = "com.mysql.jdbc.Driver";
+		private static final String URL = "jdbc:mysql://127.0.0.1:3306/데이터베이스명";
+		
+		private static final String USER = "데이터베이스 유저명";
+		private static final String PW = "데이터베이스 비밀번호";
+		
+		@Test
+		public void testConnection() throws Exception{
+			Class.forName(DRIVER);
+			
+			try(Connection conn = DriverManager.getConnection(URL, USER, PW)){
+				
+				System.out.println(conn); // 콘솔창에서 연결정보를 출력하여 확인한다.
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		
+		
+	}
+
+}

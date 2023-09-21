@@ -1,0 +1,13 @@
+package user;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+// UserDAO //
+public class UserDAO {
+	
+	private Connection connection;
+	private PreparedStatement pstmt; 
+	
+	
+} // End - UserDAO
